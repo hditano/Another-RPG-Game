@@ -32,6 +32,15 @@ function createApples() {
     }
 }
 
+function harverst() {
+    for(let i = 0; i < squares.length; i++) {
+        if(squares[i].classList.contains('apples') && squares[i].classList.contains('player')) {
+            squares[i].classList.add('apples-harverst');
+            console.log('hay apple!');
+        }
+    }
+}
+
 function control(e) {
     if (e.key === 'ArrowLeft') {
         direction = -1;
@@ -59,6 +68,8 @@ function control(e) {
         squares[playerPos[0]].classList.add('player');
         squares[playerPos[1]].classList.remove('player');
         playerPos.pop();
+    } else if (e.key === 'Control') {
+        harverst();
     }
 }
 
