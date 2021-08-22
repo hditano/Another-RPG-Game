@@ -1,11 +1,12 @@
 const mainGrid = document.querySelector('.main-grid');
-const player = document.querySelector('.player');
 const grid = document.querySelectorAll('.grid');
+const numberApples = document.querySelector('.number-apples');
 let squares = [];
 let playerPos = [34];
 let apples = [];
 let direction = 1;
 let width = 10;
+let numApples = 0;
 
 function createDiv() {
     for (let i = 0; i < 100; i++) {
@@ -25,23 +26,27 @@ function createApples() {
     apples.push(myApples);
     apples.forEach(index => squares[index].classList.add('apples'));
 
+}
+
+function harvest() {
     for (let i = 0; i < squares.length; i++) {
-        if (squares[i].classList.contains('apples')) {
-            squares[i].textContent = 'Apple';
+        if (squares[i].classList.contains('apples') && squares[i].classList.contains('player')) {
+            squares[i].classList.remove('apples');
+            numApples += 1;
+            numberApples.textContent = numApples;
+            apples.pop();
+            squares[i].textContent = '';
+            createApples();
         }
     }
 }
 
-function harverst() {
-    for(let i = 0; i < squares.length; i++) {
-        if(squares[i].classList.contains('apples') && squares[i].classList.contains('player')) {
-            squares[i].classList.add('apples-harverst');
-            console.log('hay apple!');
-        }
-    }
+function animateScript() {
+    document.querySelector('.player').style.backgroundPosition = `-256px 0px`;
 }
 
 function control(e) {
+
     if (e.key === 'ArrowLeft') {
         direction = -1;
         console.log('Left');
@@ -69,7 +74,7 @@ function control(e) {
         squares[playerPos[1]].classList.remove('player');
         playerPos.pop();
     } else if (e.key === 'Control') {
-        harverst();
+        harvest();
     }
 }
 
